@@ -1,0 +1,35 @@
+﻿@model OMDB.Models.ActorDetailModel
+@{
+    ViewBag.Title = "Aktör Detayı";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-2">
+        <img src="@("/documents/actors/" + Model.ProfilePictureFileName)" alt="@Model.FirstName @Model.LastName" />
+    </div>
+    <div class="col-md-10">
+        <div class="row">
+            <h2>@Model.FirstName @Model.LastName</h2>
+            <span class="fa fa-calendar" title="Doğum Tarihi"></span> @Model.BirthDate.ToString("dd.MM.yyyy")
+        </div>
+        <div class="row">
+            <p>@Model.Bio</p>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <hr style="border-bottom: 1px solid #d3d3d3;" />
+    @foreach (var item in Model.Movies)
+    {
+        <div class="col-sm-6 col-md-3">
+            <div class="latest-movie">
+                <a href="@Url.Action("MovieDetail", "Home", new { id = item.Movie.Id })">
+                    <img style="width:200px;height:180px;" src="@("/documents/posters/" + item.Movie.PosterPicture)" alt="@item.Movie.Name">
+                    <span class="latest-movie-title">@item.Movie.Name</span>
+                    <span class="latest-movie-title actor-title">@item.Movie.ReleaseDate.ToString("yyyy")</span>
+                </a>
+            </div>
+        </div>
+    }
+</div>

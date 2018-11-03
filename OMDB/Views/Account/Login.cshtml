@@ -1,0 +1,104 @@
+﻿@model OMDB.Models.LoginModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1">
+
+    <title>Giriş Yap</title>
+    @*<link href="~/Content/Site.css" rel="stylesheet" type="text/css" />*@
+    @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />*@
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <!-- Loading third party fonts -->
+    <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,700|" rel="stylesheet" type="text/css">
+    <link href="/fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- Loading main css file -->
+    <link rel="stylesheet" href="/Content/style.css">
+    <link href="/Content/Main.css" rel="stylesheet" />
+
+    <!--[if lt IE 9]>
+    <script src="js/ie-support/html5.js"></script>
+    <script src="js/ie-support/respond.js"></script>
+    <![endif]-->
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+</head>
+<body>
+    <div id="site-content">
+        <header class="site-header">
+            <div class="container">
+                <a href="/Home/Index" id="branding">
+                    <img src="/images/logo.png" alt="" class="logo">
+                    <div class="logo-copy">
+                        <h1 class="site-title">OMDB</h1>
+                        <small class="site-description">Omer's Movie Database</small>
+                    </div>
+                </a> <!-- #branding -->
+                <div class="main-navigation">
+                    <button type="button" class="menu-toggle"><i class="fa fa-bars"></i></button>
+                    <ul class="menu">
+                        <li class="menu-item">@Html.ActionLink("Anasayfa", "Index", "Home")</li>
+                        <li class="menu-item">@Html.ActionLink("Filmler", "Movies", "Home")</li>
+                        <li class="menu-item">@Html.ActionLink("Aktörler", "Actors", "Home")</li>
+                        <li class="menu-item">@Html.ActionLink("Kayıt Ol / Giriş Yap", "Login", "Account")</li>
+                    </ul> <!-- .menu -->
+                </div> <!-- .main-navigation -->
+                <div class="mobile-navigation"></div>
+            </div>
+        </header>
+        <main class="main-content">
+            <div class="container">
+                <div class="page">
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-6">
+                            <div class="main-login-form">
+                                @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+                                {
+                                    <div class="row">
+                                        <div class="row login-val-sum">
+                                            @Html.ValidationSummary(true)
+                                        </div>
+                                        <div class="form-group row">
+                                            <span class="col-sm-4">
+                                                @Html.LabelFor(x => x.Username) @Html.ValidationMessageFor(x => x.Username, "", new { @class = "text-danger" })
+                                            </span>
+                                            <div class="col-sm-12 margin-top-10px">
+                                                @Html.TextBoxFor(x => x.Username, new { @class = "form-control", placeholder = "Kullanıcı Adı" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group row margin-top-10px">
+                                            <span class="col-sm-4">
+                                                @Html.LabelFor(x => x.Password) @Html.ValidationMessageFor(x => x.Password, "", new { @class = "text-danger" })
+                                            </span>
+                                            <div class="col-sm-12 margin-top-10px">
+                                                @Html.PasswordFor(x => x.Password, new { @class = "form-control", placeholder = "Şifre" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row margin-top-10px">
+                                        <div style="float:left"><input type="submit" value="Giriş Yap" /></div>
+                                        <div style="float:right">
+                                            @Html.ActionLink("Kayıt Ol", "SingUp", "Account", null, new { @class = "btn btn-danger" })
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div> <!-- .row -->
+                </div>
+            </div> <!-- .container -->
+        </main>
+    </div>
+    <!-- Default snippet for navigation -->
+</body>
+</html>

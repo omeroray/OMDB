@@ -1,0 +1,45 @@
+﻿@model OMDB.Models.CreateActorModel
+@{
+    ViewBag.Title = "Aktör Ekleme";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Aktör Ekleme</h2>
+
+
+@using (Html.BeginForm("CreateActor", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="form-group row">
+        <span class="col-sm-4">@Html.LabelFor(x => x.FirstName) @Html.ValidationMessageFor(x => x.FirstName, "", new { @class = "text-danger" })</span>
+        <div>
+            @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control", placeholder = "Adı" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <span class="col-sm-4">@Html.LabelFor(x => x.LastName) @Html.ValidationMessageFor(x => x.LastName, "", new { @class = "text-danger" })</span>
+        <div>
+            @Html.TextBoxFor(x => x.LastName, new { @class = "form-control", placeholder = "Soyadı" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <span class="col-sm-4">@Html.LabelFor(x => x.BirthDate) @Html.ValidationMessageFor(x => x.BirthDate, "", new { @class = "text-danger" })</span>
+        <div>
+            @Html.TextBoxFor(x => x.BirthDate, new { @class = "form-control", placeholder = "Doğum Tarihi" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <span class="col-sm-4">@Html.LabelFor(x => x.Bio) @Html.ValidationMessageFor(x => x.Bio, "", new { @class = "text-danger" })</span>
+        <div>
+            @Html.TextAreaFor(x => x.Bio, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <span class="col-sm-4">@Html.LabelFor(x => x.ProfilePicture)</span>
+        <div>
+            <input type="file" name="actorPicture" />
+        </div>
+    </div>
+    <div class="row">
+        <input type="submit" value="Ekle" class="btn btn-success col-md-offset-4 col-sm-12" />
+    </div>
+}

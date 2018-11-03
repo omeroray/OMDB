@@ -1,0 +1,62 @@
+﻿html,
+body {
+    height: 100%;
+}
+
+.w40px {
+    width: 40px;
+}
+
+ul.category-list {
+    list-style-type: none;
+}
+
+    ul.category-list li:nth-child(odd) {
+        background: #f7f7f7;
+    }
+
+    ul.category-list li {
+        padding: 10px;
+        border: 1px solid #dadada;
+        text-align: center;
+    }
+
+span.latest-movie-title {
+    text-align: center;
+    padding: 10px;
+    display: block;
+    background: #f1f1f1;
+}
+
+span.actor-title {
+    color:#8a8a8a !important;
+}
+
+.main-login-form input.form-control {
+    width: 100%;
+}
+
+.margin-top-10px {
+    margin-top: 10px;
+}
+
+.login-val-sum {
+    color: red;
+    text-align: center;
+}
+
+    .login-val-sum ul {
+        list-style-type: none;
+    }
+
+.text-danger {
+    color: red;
+}
+
+.admin-wrapper {
+    margin-top: 20px;
+}
+
+.main-page-data h2 {
+    margin-top: 0px !important;
+}

@@ -1,0 +1,42 @@
+﻿@model OMDB.Models.CreateMovieCastCrewModel
+@{
+    ViewBag.Title = "Film - Aktör Yönetimi";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Film - Aktör Yönetimi</h2>
+
+
+<div class="panel-body">
+    <div class="row">
+        @using (Html.BeginForm("ManageMovieActorRelation", "Admin", new { id = ViewBag.MovieId }, FormMethod.Post))
+        {
+            @Html.Hidden("MovieId", (int)ViewBag.MovieId)
+            <div class="col-md-4">@Html.DropDownListFor(x => x.CastCrewId, (SelectList)ViewBag.ActorSelectListSource, new { @class = "form-control" })</div>
+            <div class="col-md-4">@Html.DropDownListFor(x => x.Title, (SelectList)ViewBag.TitleSelectListSource, new { @class = "form-control" })</div>
+            <div class="col-md-4"><input type="submit" value="Ekle" class="btn btn-success col-md-12" /></div>
+        }
+    </div>
+    <hr />
+    <div class="row">
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <td>Adı</td>
+                    <td>Pozisyonu</td>
+                    <td class="w40px"></td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.Actors)
+                {
+                    <tr>
+                        <td>@item.Actor.FirstName @item.Actor.LastName</td>
+                        <td>@item.Title.Name</td>
+                        <td>@Html.ActionLink("Sil", "DeleteMovieActorRelation", new { id = item.RelationId, movieId = item.Movie.Id }, new { @class = "btn btn-danger" })</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

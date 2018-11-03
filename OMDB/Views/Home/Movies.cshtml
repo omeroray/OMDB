@@ -1,0 +1,20 @@
+﻿@model OMDB.Models.ListMoviesModel
+@{
+    ViewBag.Title = "Filmler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>FİLMLER</h2>
+
+
+@foreach (var movie in Model.MovieList)
+{
+    <div class="col-sm-6 col-md-3">
+        <div class="latest-movie">
+            <a href="@Url.Action("MovieDetail", "Home", new { id = movie.Id })">
+                <img style="width:200px;height:180px;" src="@("/documents/posters/" + movie.PosterPicture)" alt="@movie.Name">
+                <span class="latest-movie-title">@movie.Name</span>
+            </a>
+        </div>
+    </div>
+}

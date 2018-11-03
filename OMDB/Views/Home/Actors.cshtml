@@ -1,0 +1,19 @@
+﻿@model OMDB.Models.ListActorsModel
+@{
+    ViewBag.Title = "Oyuncular";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AKTÖRLER</h2>
+
+@foreach (var actor in Model.People)
+{
+    <div class="col-sm-6 col-md-3">
+        <div class="latest-movie">
+            <a href="@Url.Action("ActorDetail", "Home", new { id = actor.Id })">
+                <img style="width:200px;height:180px;" src="@("/documents/actors/" + actor.ProfilePicture)" alt="@actor.LastName">
+                <span class="latest-movie-title">@actor.FirstName, @actor.LastName</span>
+            </a>
+        </div>
+    </div>
+}

@@ -1,0 +1,55 @@
+﻿@model OMDB.Models.UpdateMovieModel
+@{
+    ViewBag.Title = "Film Düzenleme";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Film Düzenleme</h2>
+
+@using (Html.BeginForm("UpdateMovie", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="form-group row">
+        <span class="col-sm-4">@Html.LabelFor(x => x.Name) @Html.ValidationMessageFor(x => x.Name, "", new { @class = "text-danger" })</span>
+        <div>
+            @Html.TextBoxFor(x => x.Name, new { @class = "form-control", placeholder = "Film Adı" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <span class="col-sm-4">@Html.LabelFor(x => x.Description)</span>
+        <div>
+            @Html.TextAreaFor(x => x.Description, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <span class="col-sm-4">@Html.LabelFor(x => x.ReleaseDate) @Html.ValidationMessageFor(x => x.ReleaseDate, "", new { @class = "text-danger" })</span>
+        <div>
+            @Html.TextBoxFor(x => x.ReleaseDate, new { @class = "form-control", placeholder = "Yayın Tarihi" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <span class="col-sm-4">@Html.LabelFor(x => x.Runtime) @Html.ValidationMessageFor(x => x.Runtime, "", new { @class = "text-danger" })</span>
+        <div>
+            @Html.TextBoxFor(x => x.Runtime, new { @class = "form-control", placeholder = "Film Süresi" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <span class="col-sm-4">@Html.LabelFor(x => x.PosterPicture)</span>
+        <div>
+            <input type="file" name="poster" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <span class="col-sm-4">@Html.LabelFor(x => x.SelectedCategories)</span>
+        <div class="col-sm-8">
+            @foreach (var item in ViewBag.CategoryListSource)
+            {
+                <label>
+                    <input type="checkbox" name="SelectedCategories" value="@item.Id"
+                           @(Model.SelectedCategories != null && Model.SelectedCategories.Contains(item.Id) ? "checked" : "") /> @item.Name
+                    </label>
+            }
+        </div>
+    </div>
+
+    <input type="submit" value="Düzenle" class="btn btn-success col-md-offset-4 col-sm-12" />
+}

@@ -1,0 +1,33 @@
+﻿@model OMDB.Models.ListActorsModel
+@{
+    ViewBag.Title = "Aktör Listesi";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Aktör Listesi</h2>
+
+<div class="panel-body">
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <td>Adı</td>
+                <td>Soyadı</td>
+                <td>Doğum Tarihi</td>
+                <td class="w40px"></td>
+                <td class="w40px"></td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.People)
+            {
+                <tr>
+                    <td>@item.FirstName</td>
+                    <td>@item.LastName</td>
+                    <td>@item.BirthDate.ToString("dd.MM.yyyy")</td>
+                    <td>@Html.ActionLink("Düzenle", "UpdateActor", new { id = item.Id }, new { @class = "btn btn-warning" })</td>
+                    <td>@Html.ActionLink("Sil", "DeleteActor", new { id = item.Id }, new { @class = "btn btn-danger" })</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

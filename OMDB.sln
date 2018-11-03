@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMDB", "OMDB\OMDB.csproj", "{5ACE7EA4-EAE0-4B39-97C2-16B7365BDC6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMDB.BLL", "OMDB.BLL\OMDB.BLL.csproj", "{C58EA9AE-B861-431C-9578-8E7335F4B0FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMDB.DAL", "OMDB.DAL\OMDB.DAL.csproj", "{EC31DC98-9CC3-4E4A-8BAF-E2B0E8C75012}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5ACE7EA4-EAE0-4B39-97C2-16B7365BDC6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5ACE7EA4-EAE0-4B39-97C2-16B7365BDC6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5ACE7EA4-EAE0-4B39-97C2-16B7365BDC6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5ACE7EA4-EAE0-4B39-97C2-16B7365BDC6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C58EA9AE-B861-431C-9578-8E7335F4B0FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C58EA9AE-B861-431C-9578-8E7335F4B0FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C58EA9AE-B861-431C-9578-8E7335F4B0FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C58EA9AE-B861-431C-9578-8E7335F4B0FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC31DC98-9CC3-4E4A-8BAF-E2B0E8C75012}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC31DC98-9CC3-4E4A-8BAF-E2B0E8C75012}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC31DC98-9CC3-4E4A-8BAF-E2B0E8C75012}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC31DC98-9CC3-4E4A-8BAF-E2B0E8C75012}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

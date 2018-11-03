@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c57ed218f36044d39ef5e84049a95a21" Name="Diagram1">
+        <EntityTypeShape EntityType="OMDBModel.Category" Width="1.5" PointX="3.75" PointY="0.75" />
+        <EntityTypeShape EntityType="OMDBModel.Comment" Width="1.5" PointX="3" PointY="3.375" />
+        <EntityTypeShape EntityType="OMDBModel.Movie" Width="1.5" PointX="0.75" PointY="6" />
+        <EntityTypeShape EntityType="OMDBModel.MovieCategory" Width="1.5" PointX="6" PointY="6.5" />
+        <EntityTypeShape EntityType="OMDBModel.Rate" Width="1.5" PointX="3" PointY="6.5" />
+        <EntityTypeShape EntityType="OMDBModel.Title" Width="1.5" PointX="0.75" PointY="13.25" />
+        <AssociationConnector Association="OMDBModel.FK_MovieCategory_Category" />
+        <AssociationConnector Association="OMDBModel.FK_Comment_Movie" />
+        <AssociationConnector Association="OMDBModel.FK_MovieCategory_Movie" />
+        <AssociationConnector Association="OMDBModel.FK_Rate_Movie" />
+        <EntityTypeShape EntityType="OMDBModel.User" Width="1.5" PointX="6.375" PointY="1" />
+        <AssociationConnector Association="OMDBModel.FK_Comment_User" />
+        <AssociationConnector Association="OMDBModel.FK_Rate_User" />
+        <EntityTypeShape EntityType="OMDBModel.CastCrew" Width="1.5" PointX="8.375" PointY="1" />
+        <EntityTypeShape EntityType="OMDBModel.MovieCastCrew" Width="1.5" PointX="10.625" PointY="6.75" />
+        <AssociationConnector Association="OMDBModel.FK_MovieCastCrew_CastCrew" />
+        <AssociationConnector Association="OMDBModel.FK_MovieCastCrew_Movie" />
+        <AssociationConnector Association="OMDBModel.FK_MovieCastCrew_Title" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

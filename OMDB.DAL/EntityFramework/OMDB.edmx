@@ -1,0 +1,605 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="OMDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CastCrew">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BirthDate" Type="date" Nullable="false" />
+          <Property Name="Bio" Type="ntext" />
+          <Property Name="ProfilePicture" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="MovieId" Type="int" Nullable="false" />
+          <Property Name="Text" Type="ntext" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Movie">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="ntext" />
+          <Property Name="ReleaseDate" Type="date" Nullable="false" />
+          <Property Name="Runtime" Type="int" Nullable="false" />
+          <Property Name="PosterPicture" Type="varchar" MaxLength="50" />
+          <Property Name="Trailer" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="MovieCastCrew">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MovieId" Type="int" Nullable="false" />
+          <Property Name="CastCrewId" Type="int" Nullable="false" />
+          <Property Name="TitleId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MovieCategory">
+          <Key>
+            <PropertyRef Name="MovieId" />
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="MovieId" Type="int" Nullable="false" />
+          <Property Name="CategoryId" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rate">
+          <Key>
+            <PropertyRef Name="MovieId" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="MovieId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="StarRate" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Title">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="ProfilePicture" Type="varchar" MaxLength="50" />
+          <Property Name="UserType" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Comment_Movie">
+          <End Role="Movie" Type="Self.Movie" Multiplicity="1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Movie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="MovieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MovieCastCrew_CastCrew">
+          <End Role="CastCrew" Type="Self.CastCrew" Multiplicity="1" />
+          <End Role="MovieCastCrew" Type="Self.MovieCastCrew" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CastCrew">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MovieCastCrew">
+              <PropertyRef Name="CastCrewId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MovieCastCrew_Movie">
+          <End Role="Movie" Type="Self.Movie" Multiplicity="1" />
+          <End Role="MovieCastCrew" Type="Self.MovieCastCrew" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Movie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MovieCastCrew">
+              <PropertyRef Name="MovieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MovieCastCrew_Title">
+          <End Role="Title" Type="Self.Title" Multiplicity="1" />
+          <End Role="MovieCastCrew" Type="Self.MovieCastCrew" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Title">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MovieCastCrew">
+              <PropertyRef Name="TitleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rate_Movie">
+          <End Role="Movie" Type="Self.Movie" Multiplicity="1" />
+          <End Role="Rate" Type="Self.Rate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Movie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Rate">
+              <PropertyRef Name="MovieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rate_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Rate" Type="Self.Rate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Rate">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OMDBModelStoreContainer">
+          <EntitySet Name="CastCrew" EntityType="Self.CastCrew" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Movie" EntityType="Self.Movie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MovieCastCrew" EntityType="Self.MovieCastCrew" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MovieCategory" EntityType="Self.MovieCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rate" EntityType="Self.Rate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Title" EntityType="Self.Title" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Comment_Movie" Association="Self.FK_Comment_Movie">
+            <End Role="Movie" EntitySet="Movie" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_User" Association="Self.FK_Comment_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MovieCastCrew_CastCrew" Association="Self.FK_MovieCastCrew_CastCrew">
+            <End Role="CastCrew" EntitySet="CastCrew" />
+            <End Role="MovieCastCrew" EntitySet="MovieCastCrew" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MovieCastCrew_Movie" Association="Self.FK_MovieCastCrew_Movie">
+            <End Role="Movie" EntitySet="Movie" />
+            <End Role="MovieCastCrew" EntitySet="MovieCastCrew" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MovieCastCrew_Title" Association="Self.FK_MovieCastCrew_Title">
+            <End Role="Title" EntitySet="Title" />
+            <End Role="MovieCastCrew" EntitySet="MovieCastCrew" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rate_Movie" Association="Self.FK_Rate_Movie">
+            <End Role="Movie" EntitySet="Movie" />
+            <End Role="Rate" EntitySet="Rate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rate_User" Association="Self.FK_Rate_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Rate" EntitySet="Rate" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OMDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="OMDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Category" EntityType="OMDBModel.Category" />
+          <EntitySet Name="Comment" EntityType="OMDBModel.Comment" />
+          <EntitySet Name="Movie" EntityType="OMDBModel.Movie" />
+          <EntitySet Name="MovieCategory" EntityType="OMDBModel.MovieCategory" />
+          <EntitySet Name="Rate" EntityType="OMDBModel.Rate" />
+          <EntitySet Name="Title" EntityType="OMDBModel.Title" />
+          <AssociationSet Name="FK_MovieCategory_Category" Association="OMDBModel.FK_MovieCategory_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="MovieCategory" EntitySet="MovieCategory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Movie" Association="OMDBModel.FK_Comment_Movie">
+            <End Role="Movie" EntitySet="Movie" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MovieCategory_Movie" Association="OMDBModel.FK_MovieCategory_Movie">
+            <End Role="Movie" EntitySet="Movie" />
+            <End Role="MovieCategory" EntitySet="MovieCategory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rate_Movie" Association="OMDBModel.FK_Rate_Movie">
+            <End Role="Movie" EntitySet="Movie" />
+            <End Role="Rate" EntitySet="Rate" />
+          </AssociationSet>
+          <EntitySet Name="User" EntityType="OMDBModel.User" />
+          <AssociationSet Name="FK_Comment_User" Association="OMDBModel.FK_Comment_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rate_User" Association="OMDBModel.FK_Rate_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Rate" EntitySet="Rate" />
+          </AssociationSet>
+          <EntitySet Name="CastCrew" EntityType="OMDBModel.CastCrew" />
+          <EntitySet Name="MovieCastCrew" EntityType="OMDBModel.MovieCastCrew" />
+          <AssociationSet Name="FK_MovieCastCrew_CastCrew" Association="OMDBModel.FK_MovieCastCrew_CastCrew">
+            <End Role="CastCrew" EntitySet="CastCrew" />
+            <End Role="MovieCastCrew" EntitySet="MovieCastCrew" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MovieCastCrew_Movie" Association="OMDBModel.FK_MovieCastCrew_Movie">
+            <End Role="Movie" EntitySet="Movie" />
+            <End Role="MovieCastCrew" EntitySet="MovieCastCrew" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MovieCastCrew_Title" Association="OMDBModel.FK_MovieCastCrew_Title">
+            <End Role="Title" EntitySet="Title" />
+            <End Role="MovieCastCrew" EntitySet="MovieCastCrew" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MovieCategory" Relationship="OMDBModel.FK_MovieCategory_Category" FromRole="Category" ToRole="MovieCategory" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="MovieId" Type="Int32" Nullable="false" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Movie" Relationship="OMDBModel.FK_Comment_Movie" FromRole="Comment" ToRole="Movie" />
+          <NavigationProperty Name="User" Relationship="OMDBModel.FK_Comment_User" FromRole="Comment" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Movie">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ReleaseDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Runtime" Type="Int32" Nullable="false" />
+          <Property Name="PosterPicture" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Trailer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Comment" Relationship="OMDBModel.FK_Comment_Movie" FromRole="Movie" ToRole="Comment" />
+          <NavigationProperty Name="MovieCategory" Relationship="OMDBModel.FK_MovieCategory_Movie" FromRole="Movie" ToRole="MovieCategory" />
+          <NavigationProperty Name="Rate" Relationship="OMDBModel.FK_Rate_Movie" FromRole="Movie" ToRole="Rate" />
+          <NavigationProperty Name="MovieCastCrew" Relationship="OMDBModel.FK_MovieCastCrew_Movie" FromRole="Movie" ToRole="MovieCastCrew" />
+        </EntityType>
+        <EntityType Name="MovieCategory">
+          <Key>
+            <PropertyRef Name="MovieId" />
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="MovieId" Type="Int32" Nullable="false" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Category" Relationship="OMDBModel.FK_MovieCategory_Category" FromRole="MovieCategory" ToRole="Category" />
+          <NavigationProperty Name="Movie" Relationship="OMDBModel.FK_MovieCategory_Movie" FromRole="MovieCategory" ToRole="Movie" />
+        </EntityType>
+        <EntityType Name="Rate">
+          <Key>
+            <PropertyRef Name="MovieId" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="MovieId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="StarRate" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Movie" Relationship="OMDBModel.FK_Rate_Movie" FromRole="Rate" ToRole="Movie" />
+          <NavigationProperty Name="User" Relationship="OMDBModel.FK_Rate_User" FromRole="Rate" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Title">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MovieCastCrew" Relationship="OMDBModel.FK_MovieCastCrew_Title" FromRole="Title" ToRole="MovieCastCrew" />
+        </EntityType>
+        <Association Name="FK_MovieCategory_Category">
+          <End Type="OMDBModel.Category" Role="Category" Multiplicity="1" />
+          <End Type="OMDBModel.MovieCategory" Role="MovieCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MovieCategory">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_Movie">
+          <End Type="OMDBModel.Movie" Role="Movie" Multiplicity="1" />
+          <End Type="OMDBModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Movie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="MovieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MovieCategory_Movie">
+          <End Type="OMDBModel.Movie" Role="Movie" Multiplicity="1" />
+          <End Type="OMDBModel.MovieCategory" Role="MovieCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Movie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MovieCategory">
+              <PropertyRef Name="MovieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rate_Movie">
+          <End Type="OMDBModel.Movie" Role="Movie" Multiplicity="1" />
+          <End Type="OMDBModel.Rate" Role="Rate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Movie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Rate">
+              <PropertyRef Name="MovieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ProfilePicture" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserType" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Comment" Relationship="OMDBModel.FK_Comment_User" FromRole="User" ToRole="Comment" />
+          <NavigationProperty Name="Rate" Relationship="OMDBModel.FK_Rate_User" FromRole="User" ToRole="Rate" />
+        </EntityType>
+        <Association Name="FK_Comment_User">
+          <End Type="OMDBModel.User" Role="User" Multiplicity="1" />
+          <End Type="OMDBModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rate_User">
+          <End Type="OMDBModel.User" Role="User" Multiplicity="1" />
+          <End Type="OMDBModel.Rate" Role="Rate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Rate">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CastCrew">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Bio" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProfilePicture" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MovieCastCrew" Relationship="OMDBModel.FK_MovieCastCrew_CastCrew" FromRole="CastCrew" ToRole="MovieCastCrew" />
+        </EntityType>
+        <EntityType Name="MovieCastCrew">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MovieId" Type="Int32" Nullable="false" />
+          <Property Name="CastCrewId" Type="Int32" Nullable="false" />
+          <Property Name="TitleId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CastCrew" Relationship="OMDBModel.FK_MovieCastCrew_CastCrew" FromRole="MovieCastCrew" ToRole="CastCrew" />
+          <NavigationProperty Name="Movie" Relationship="OMDBModel.FK_MovieCastCrew_Movie" FromRole="MovieCastCrew" ToRole="Movie" />
+          <NavigationProperty Name="Title" Relationship="OMDBModel.FK_MovieCastCrew_Title" FromRole="MovieCastCrew" ToRole="Title" />
+        </EntityType>
+        <Association Name="FK_MovieCastCrew_CastCrew">
+          <End Type="OMDBModel.CastCrew" Role="CastCrew" Multiplicity="1" />
+          <End Type="OMDBModel.MovieCastCrew" Role="MovieCastCrew" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CastCrew">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MovieCastCrew">
+              <PropertyRef Name="CastCrewId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MovieCastCrew_Movie">
+          <End Type="OMDBModel.Movie" Role="Movie" Multiplicity="1" />
+          <End Type="OMDBModel.MovieCastCrew" Role="MovieCastCrew" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Movie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MovieCastCrew">
+              <PropertyRef Name="MovieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MovieCastCrew_Title">
+          <End Type="OMDBModel.Title" Role="Title" Multiplicity="1" />
+          <End Type="OMDBModel.MovieCastCrew" Role="MovieCastCrew" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Title">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MovieCastCrew">
+              <PropertyRef Name="TitleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OMDBModelStoreContainer" CdmEntityContainer="OMDBEntities">
+          <EntitySetMapping Name="Category">
+            <EntityTypeMapping TypeName="OMDBModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comment">
+            <EntityTypeMapping TypeName="OMDBModel.Comment">
+              <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="MovieId" ColumnName="MovieId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Movie">
+            <EntityTypeMapping TypeName="OMDBModel.Movie">
+              <MappingFragment StoreEntitySet="Movie">
+                <ScalarProperty Name="Trailer" ColumnName="Trailer" />
+                <ScalarProperty Name="PosterPicture" ColumnName="PosterPicture" />
+                <ScalarProperty Name="Runtime" ColumnName="Runtime" />
+                <ScalarProperty Name="ReleaseDate" ColumnName="ReleaseDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MovieCategory">
+            <EntityTypeMapping TypeName="OMDBModel.MovieCategory">
+              <MappingFragment StoreEntitySet="MovieCategory">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="MovieId" ColumnName="MovieId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rate">
+            <EntityTypeMapping TypeName="OMDBModel.Rate">
+              <MappingFragment StoreEntitySet="Rate">
+                <ScalarProperty Name="StarRate" ColumnName="StarRate" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="MovieId" ColumnName="MovieId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Title">
+            <EntityTypeMapping TypeName="OMDBModel.Title">
+              <MappingFragment StoreEntitySet="Title">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="OMDBModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="ProfilePicture" ColumnName="ProfilePicture" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CastCrew">
+            <EntityTypeMapping TypeName="OMDBModel.CastCrew">
+              <MappingFragment StoreEntitySet="CastCrew">
+                <ScalarProperty Name="ProfilePicture" ColumnName="ProfilePicture" />
+                <ScalarProperty Name="Bio" ColumnName="Bio" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MovieCastCrew">
+            <EntityTypeMapping TypeName="OMDBModel.MovieCastCrew">
+              <MappingFragment StoreEntitySet="MovieCastCrew">
+                <ScalarProperty Name="TitleId" ColumnName="TitleId" />
+                <ScalarProperty Name="CastCrewId" ColumnName="CastCrewId" />
+                <ScalarProperty Name="MovieId" ColumnName="MovieId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
